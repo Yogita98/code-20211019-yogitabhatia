@@ -1,29 +1,19 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 
-//Components
+// Components
 import { Drawer } from '@material-ui/core';
 import { LinearProgress } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Badge from '@material-ui/core/Badge';
-import Item from './Car/Car';
 import { FavoriteBorder } from '@material-ui/icons';
+import Item from './Car/Car';
 
-//Styles
+// Styles
 import { Wrapper, StyledButton } from './App.styles';
 import Wishlist from './Wishlist/Wishlist';
 
-//Types
-export type WishlistItemType = {
-  id: number;
-  category: string;
-  description: string;
-  image: string;
-  price: number;
-  title: string;
-  amount: number;
-};
-
+// Types
 export type WishlistItemTypeCars = {
   id: number;
   car: string;
@@ -36,30 +26,20 @@ export type WishlistItemTypeCars = {
   amount: number;
 };
 
-type CarsType = {
-  cars: Array<WishlistItemTypeCars>;
-}
-
-const getCars = async (): Promise<WishlistItemType[]> =>
-  await await (await fetch('https://fakestoreapi.com/products')).json();
-
-const getCars2 = async (): Promise<Array<WishlistItemTypeCars>> =>{
+const getCars = async (): Promise<Array<WishlistItemTypeCars>> => {
   const items = await (await fetch('https://myfakeapi.com/api/cars')).json();
   const { cars } = items;
-  return cars
-  }
+  return cars;
+};
 
 const App = () => {
   const [wishlistOpen, setWishlistOpen] = useState(false);
-  const [wishlistItems, setWishlistItems] = useState([] as WishlistItemTypeCars[]);
-  // const { data, isLoading, error } = useQuery<WishlistItemType[]>(
-  //   'cars',
-  //   getCars
-  // );
-/* @ts-ignore */
+  const [wishlistItems, setWishlistItems] = useState(
+    [] as WishlistItemTypeCars[]
+  );
   const { data, isLoading, error } = useQuery<Array<WishlistItemTypeCars>>(
     'cars2',
-    getCars2
+    getCars
   );
   console.log(data);
 
@@ -76,9 +56,9 @@ const App = () => {
   };
 
   const handleRemoveFromCart = (id: number) => {
-    setWishlistItems((prev: WishlistItemTypeCars[]) => {
-      return prev.filter((item) => item.id !== id);
-    });
+    setWishlistItems((prev: WishlistItemTypeCars[]) =>
+      prev.filter((item) => item.id !== id)
+    );
   };
 
   if (isLoading) return <LinearProgress />;
@@ -104,7 +84,7 @@ const App = () => {
       <Grid container spacing={5}>
         {data?.map((item) => (
           <Grid item key={item.id} xs={12} sm={4}>
-            <Item item={item} handleAddToWishlist={handleAddToWishlist}></Item>
+            <Item item={item} handleAddToWishlist={handleAddToWishlist} />
           </Grid>
         ))}
       </Grid>

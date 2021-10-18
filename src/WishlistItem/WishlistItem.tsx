@@ -1,8 +1,5 @@
 import { Button } from '@material-ui/core';
-
 import { WishlistItemTypeCars } from '../App';
-import Item from '../Car/Car';
-
 import { Wrapper } from './WishlistItem.styles';
 
 type Props = {
@@ -11,7 +8,7 @@ type Props = {
   removeFromCart: (id: number) => void;
 };
 
-const WishlistItem: React.FC<Props> = ({ item, addToWishlist, removeFromCart }) => (
+const WishlistItem: React.FC<Props> = ({ item, removeFromCart }) => (
   <Wrapper>
     <div>
       <h3>{item.car}</h3>

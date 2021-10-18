@@ -23,8 +23,14 @@ const Car: React.FC<Props> = ({ item, handleAddToWishlist }) => {
     <Wrapper>
       <img src={carImg} alt={item.car} />
       <div>
-        <h4>Name: {item.car}</h4>
-        <h4>Model: {item.car_model}</h4>
+        <h4>
+          Name:
+          {item.car}
+        </h4>
+        <h4>
+          Model:
+          {item.car_model}
+        </h4>
         <h4>On-road price: ${item.price}</h4>
       </div>
 

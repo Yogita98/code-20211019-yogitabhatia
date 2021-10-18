@@ -8,21 +8,19 @@ type Props = {
   removeFromCart: (id: number) => void;
 };
 
-const Wishlist: React.FC<Props> = ({ wishlistItems, addToWishlist, removeFromCart }) => {
-  return (
-    <Wrapper>
-      <h2>Wishlisted Cars</h2>
-      {wishlistItems.length === 0 ? <p>No items in Cart.</p> : null}
-      {wishlistItems.map((item) => (
-        <CartItem
-          key={item.id}
-          item={item}
-          addToWishlist={addToWishlist}
-          removeFromCart={removeFromCart}
-        />
-      ))}
-    </Wrapper>
-  );
-};
+const Wishlist: React.FC<Props> = ({ wishlistItems, addToWishlist, removeFromCart }) => (
+  <Wrapper>
+    <h2>Wishlisted Cars</h2>
+    {wishlistItems.length === 0 ? <p>No items in Cart.</p> : null}
+    {wishlistItems.map((item) => (
+      <CartItem
+        key={item.id}
+        item={item}
+        addToWishlist={addToWishlist}
+        removeFromCart={removeFromCart}
+      />
+    ))}
+  </Wrapper>
+);
 
 export default Wishlist;
