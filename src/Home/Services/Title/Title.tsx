@@ -6,7 +6,7 @@ type Props = {
 
 const Title: React.FC<Props> = ({ title }) => {
   return (
-    <Wrapper className="section-title">
+    <Wrapper>
       <h4>{title}</h4>
     </Wrapper>
   );

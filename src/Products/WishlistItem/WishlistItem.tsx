@@ -26,7 +26,6 @@ const WishlistItem: React.FC<Props> = ({ item, removeFromCart }) => (
         </Button>
       </div>
     </div>
-    <img src="" alt={item.car} />
   </Wrapper>
 );
 

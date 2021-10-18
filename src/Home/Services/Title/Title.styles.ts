@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   margin-top: 3rem;
   h4 {
     font-size: 2rem;
-    letter-spacing: var(--mainSpacing);
     text-transform: capitalize;
     margin-bottom: 1rem;
   }
@@ -14,5 +13,4 @@ export const Wrapper = styled.div`
     width: 5rem;
     height: 5px;
     margin: 0 auto;
-    background: var(--primaryColor);
   }`;
