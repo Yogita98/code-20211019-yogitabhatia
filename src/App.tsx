@@ -1,94 +1,33 @@
-import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { Route, BrowserRouter } from 'react-router-dom';
 
 // Components
-import { Drawer } from '@material-ui/core';
-import { LinearProgress } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Badge from '@material-ui/core/Badge';
-import { FavoriteBorder } from '@material-ui/icons';
-import Item from './Car/Car';
+import NavBar from './NavBar/NavBar';
+import Home from './Home/Home';
+import Products from './Products/Products';
 
-// Styles
-import { Wrapper, StyledButton } from './App.styles';
-import Wishlist from './Wishlist/Wishlist';
-
-// Types
-export type WishlistItemTypeCars = {
-  id: number;
-  car: string;
-  car_model: string;
-  car_color: string;
-  car_model_year: number;
-  car_vin: string;
-  price: string;
-  availability: Boolean;
-  amount: number;
-};
-
-const getCars = async (): Promise<Array<WishlistItemTypeCars>> => {
-  const items = await (await fetch('https://myfakeapi.com/api/cars')).json();
-  const { cars } = items;
-  return cars;
-};
+const Contact = () => (
+  <div>
+    <h2>Contact Us</h2>
+  </div>
+);
 
 const App = () => {
-  const [wishlistOpen, setWishlistOpen] = useState(false);
-  const [wishlistItems, setWishlistItems] = useState(
-    [] as WishlistItemTypeCars[]
-  );
-  const { data, isLoading, error } = useQuery<Array<WishlistItemTypeCars>>(
-    'cars2',
-    getCars
-  );
-  console.log(data);
-
-  const getTotalCars = (items: WishlistItemTypeCars[]) =>
-    items.reduce((ack: number, item) => ack + item.amount, 0);
-
-  const handleAddToWishlist = (clickedItem: WishlistItemTypeCars) => {
-    setWishlistItems((prev: WishlistItemTypeCars[]) => {
-      // is the item already present in wishlist?
-      const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-      // do nothing if already present
-      return isItemInCart ? prev : [...prev, { ...clickedItem, amount: 1 }];
-    });
-  };
-
-  const handleRemoveFromCart = (id: number) => {
-    setWishlistItems((prev: WishlistItemTypeCars[]) =>
-      prev.filter((item) => item.id !== id)
-    );
-  };
-
-  if (isLoading) return <LinearProgress />;
-  if (error) return <div>Something went wrong....</div>;
   return (
-    <Wrapper>
-      <Drawer
-        anchor="right"
-        open={wishlistOpen}
-        onClose={() => setWishlistOpen(false)}
-      >
-        <Wishlist
-          wishlistItems={wishlistItems}
-          addToWishlist={handleAddToWishlist}
-          removeFromCart={handleRemoveFromCart}
-        />
-      </Drawer>
-      <StyledButton onClick={() => setWishlistOpen(true)}>
-        <Badge badgeContent={getTotalCars(wishlistItems)} color="error">
-          <FavoriteBorder />
-        </Badge>
-      </StyledButton>
-      <Grid container spacing={5}>
-        {data?.map((item) => (
-          <Grid item key={item.id} xs={12} sm={4}>
-            <Item item={item} handleAddToWishlist={handleAddToWishlist} />
-          </Grid>
-        ))}
-      </Grid>
-    </Wrapper>
+    <div style={{ background: '#f1f1ec' }}>
+      <BrowserRouter>
+        <NavBar />
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/home">
+          <Home />
+        </Route>
+        <Route exact path="/products">
+          <Products />
+        </Route>
+        <Route exact path="/contact" component={Contact} />
+      </BrowserRouter>
+    </div>
   );
 };
 
